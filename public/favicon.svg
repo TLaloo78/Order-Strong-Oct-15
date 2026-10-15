@@ -1,1 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#9a3f22"/><path d="M9 17.5 14 22.5 23.5 10" fill="none" stroke="#fbf7f2" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>Order Strong</title>
+  <defs>
+    <linearGradient id="os-bg" x1="0" y1="0" x2="0" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a5452a"/>
+      <stop offset="1" stop-color="#7d3119"/>
+    </linearGradient>
+    <linearGradient id="os-plate" x1="0" y1="168" x2="0" y2="344" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fde9dd"/>
+      <stop offset="1" stop-color="#eba383"/>
+    </linearGradient>
+    <linearGradient id="os-fork" x1="0" y1="150" x2="0" y2="318" gradientUnits="userSpaceOnUse">
+      <stop offset="0.6" stop-color="#fbf7f2"/>
+      <stop offset="0.82" stop-color="#e3906d"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#os-bg)"/>
+  <!-- Weight plates -->
+  <rect x="48" y="210" width="28" height="92" rx="10" fill="url(#os-plate)"/>
+  <rect x="86" y="168" width="36" height="176" rx="12" fill="url(#os-plate)"/>
+  <rect x="390" y="168" width="36" height="176" rx="12" fill="url(#os-plate)"/>
+  <rect x="436" y="210" width="28" height="92" rx="10" fill="url(#os-plate)"/>
+  <!-- Map pin -->
+  <path d="M256 84a124 124 0 0 1 124 124c0 92-124 220-124 220S132 300 132 208A124 124 0 0 1 256 84Z" fill="#fbf7f2"/>
+  <circle cx="256" cy="208" r="76" fill="#7d3119"/>
+  <!-- Fork -->
+  <g fill="url(#os-fork)">
+    <rect x="221" y="150" width="13" height="60" rx="6.5"/>
+    <rect x="249.5" y="150" width="13" height="60" rx="6.5"/>
+    <rect x="278" y="150" width="13" height="60" rx="6.5"/>
+    <path d="M221 198h70v10a35 35 0 0 1-70 0Z"/>
+    <rect x="247" y="232" width="18" height="86" rx="9"/>
+  </g>
+</svg>

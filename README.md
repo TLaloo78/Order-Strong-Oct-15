@@ -105,6 +105,16 @@ The home screen has a List / Map toggle (`RestaurantMapPanel.tsx`, `RestaurantMa
 - Map tiles are requested from the tile server by each visitor's browser, so it sees their IP address. Mention that in your privacy policy.
 - Not built yet: showing the person's own location (needs a permission prompt) and real distances from it.
 
+## Brand assets
+
+The favicon and link-preview (Open Graph) image use the app's own colors: terracotta brand, cream background.
+
+- `brand/icon.svg`: the app icon (map pin with a fork, between two weight plates). Source for every favicon.
+- `brand/og-image.html`: the 1200x630 link-preview image, laid out in HTML and SVG with an illustrated protein bowl.
+- `node brand/render.mjs`: regenerates `public/favicon.svg`, `public/favicon.ico` (16/32/48), `public/apple-touch-icon.png` (180) and `public/og-image.png` using headless Edge or Chrome (set `CHROME=/path/to/browser` if it isn't found).
+
+`index.html` links the icons and has the `og:` and `twitter:` tags. Link previews need absolute image URLs, so `vite.config.ts` replaces `__SITE_URL__` at build time with `VITE_SITE_URL` if set, otherwise Vercel's production domain (`VERCEL_PROJECT_PRODUCTION_URL`). Set `VITE_SITE_URL` if you add a custom domain or host somewhere else.
+
 ## Supabase backend
 
 Project: `xrcoejcbolhuaexspbgf`. Config comes from `.env.local` (see `.env.example`).

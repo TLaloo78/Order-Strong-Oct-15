@@ -1,0 +1,240 @@
+<!doctype html>
+<!-- Source for public/og-image.png (1200x630). Regenerate with: node brand/render.mjs (see README, "Brand assets"). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=block" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fbf7f2; --sand: #f1e9df; --line: #d9cdbf;
+    --ink: #2b2420; --ink-soft: #5c4f46;
+    --brand: #9a3f22; --brand-dark: #7d3119; --brand-tint: #f8e4da;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body { background: var(--cream); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; color: var(--ink); position: relative; }
+  .art { position: absolute; inset: 0; }
+  .left { position: absolute; left: 64px; top: 92px; width: 600px; }
+  .brandrow { display: flex; align-items: center; gap: 22px; }
+  .wordmark { font-weight: 800; font-size: 104px; line-height: 0.92; letter-spacing: -0.045em; }
+  .wordmark .a { color: var(--brand-dark); display: block; }
+  .wordmark .b { color: var(--brand); display: block; }
+  .tagline { margin-top: 34px; font-size: 33px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+  .features { margin-top: 46px; display: flex; align-items: stretch; }
+  .feature { width: 178px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
+  .feature + .feature { border-left: 2px solid var(--line); }
+  .feature svg { width: 60px; height: 60px; }
+  .feature span { font-size: 15px; font-weight: 700; letter-spacing: 0.12em; line-height: 1.35; color: var(--ink); text-transform: uppercase; }
+</style>
+</head>
+<body>
+<svg class="art" width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="food"><circle cx="958" cy="338" r="236"/></clipPath>
+    <radialGradient id="bowlShade" cx="0.45" cy="0.4" r="0.65">
+      <stop offset="0.8" stop-color="#f6f1ea"/>
+      <stop offset="1" stop-color="#e5dbcd"/>
+    </radialGradient>
+    <linearGradient id="chicken" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ecc28a"/>
+      <stop offset="0.55" stop-color="#d79a5c"/>
+      <stop offset="1" stop-color="#b8743d"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#2b2420" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <!-- Color blob behind the bowl -->
+  <path d="M760 0 H1200 V630 H690 C640 560 690 470 730 420 C640 360 650 250 720 190 C780 140 760 60 760 0 Z" fill="#9a3f22"/>
+  <circle cx="1150" cy="40" r="120" fill="#7d3119" opacity="0.35"/>
+
+  <!-- Sparkle strokes -->
+  <g stroke="#9a3f22" stroke-width="11" stroke-linecap="round">
+    <line x1="676" y1="96" x2="700" y2="58"/>
+    <line x1="646" y1="128" x2="606" y2="112"/>
+    <line x1="660" y1="170" x2="618" y2="176"/>
+  </g>
+
+  <!-- Bowl -->
+  <g filter="url(#soft)">
+    <circle cx="958" cy="338" r="282" fill="url(#bowlShade)"/>
+  </g>
+  <circle cx="958" cy="338" r="282" fill="none" stroke="#e2d7c8" stroke-width="2"/>
+  <circle cx="958" cy="338" r="246" fill="#ece3d6"/>
+
+  <g clip-path="url(#food)" id="foodLayer">
+    <circle cx="958" cy="338" r="240" fill="#e8d7b6"/>
+    <g id="quinoa"></g>
+    <g id="kale"></g>
+    <g id="cabbage" fill="none" stroke-linecap="round"></g>
+    <g id="avocado"></g>
+    <g id="tomatoes"></g>
+    <g id="chickenSlices"></g>
+    <path d="M800 300 C860 250 900 360 960 300 S1060 250 1110 330" fill="none" stroke="#f7ebd3" stroke-width="7" stroke-linecap="round" opacity="0.95"/>
+    <path d="M830 370 C880 330 930 420 990 370 S1080 330 1120 390" fill="none" stroke="#f7ebd3" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+    <g id="sesame"></g>
+    <g id="greens" stroke="#4f8a3a" stroke-width="3" stroke-linecap="round" fill="#6fae4f"></g>
+  </g>
+</svg>
+
+<div class="left">
+  <div class="brandrow">
+    <!-- Logo mark: pin with fork between two weight plates -->
+    <svg width="214" height="200" viewBox="40 80 432 360" aria-hidden="true">
+      <defs>
+        <linearGradient id="m-plate" x1="0" y1="168" x2="0" y2="344" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#c25a37"/>
+          <stop offset="1" stop-color="#9a3f22"/>
+        </linearGradient>
+        <linearGradient id="m-fork" x1="0" y1="150" x2="0" y2="318" gradientUnits="userSpaceOnUse">
+          <stop offset="0.6" stop-color="#9a3f22"/>
+          <stop offset="0.82" stop-color="#f0b398"/>
+        </linearGradient>
+      </defs>
+      <rect x="48" y="210" width="28" height="92" rx="10" fill="url(#m-plate)"/>
+      <rect x="86" y="168" width="36" height="176" rx="12" fill="url(#m-plate)"/>
+      <rect x="390" y="168" width="36" height="176" rx="12" fill="url(#m-plate)"/>
+      <rect x="436" y="210" width="28" height="92" rx="10" fill="url(#m-plate)"/>
+      <path d="M256 84a124 124 0 0 1 124 124c0 92-124 220-124 220S132 300 132 208A124 124 0 0 1 256 84Z" fill="#7d3119"/>
+      <circle cx="256" cy="208" r="76" fill="#fbf7f2"/>
+      <g fill="url(#m-fork)">
+        <rect x="221" y="150" width="13" height="60" rx="6.5"/>
+        <rect x="249.5" y="150" width="13" height="60" rx="6.5"/>
+        <rect x="278" y="150" width="13" height="60" rx="6.5"/>
+        <path d="M221 198h70v10a35 35 0 0 1-70 0Z"/>
+        <rect x="247" y="232" width="18" height="86" rx="9"/>
+      </g>
+    </svg>
+    <div class="wordmark"><span class="a">Order</span><span class="b">Strong</span></div>
+  </div>
+
+  <p class="tagline">High-protein restaurant finder</p>
+
+  <div class="features">
+    <div class="feature">
+      <!-- Flexed arm -->
+      <svg viewBox="0 0 64 64" fill="none" stroke="#7d3119" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 50c-3-9-2-20 4-28l6-9c2-3 6-3 8 0l1 3c1 2 0 4-2 5l-4 2-3 8"/>
+        <path d="M20 31c5-4 13-4 18 1 3-4 9-5 13-1 4 4 4 11 0 15-3 4-9 6-15 6H20c-3 0-6-3-6-6"/>
+        <path d="M36 32c-2 3-2 7 0 10"/>
+      </svg>
+      <span>Protein-first<br>picks</span>
+    </div>
+    <div class="feature">
+      <!-- Location pin -->
+      <svg viewBox="0 0 64 64" fill="none" stroke="#7d3119" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 58S14 39 14 26a18 18 0 0 1 36 0c0 13-18 32-18 32Z"/>
+        <circle cx="32" cy="26" r="7"/>
+      </svg>
+      <span>Local<br>restaurants</span>
+    </div>
+    <div class="feature">
+      <!-- Leaf -->
+      <svg viewBox="0 0 64 64" fill="none" stroke="#7d3119" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 54C20 50 12 40 12 26c10 0 18 4 22 12"/>
+        <path d="M32 54c12-4 20-14 20-28-10 0-18 4-22 12"/>
+        <path d="M32 54V32"/>
+      </svg>
+      <span>Smart<br>swaps</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Deterministic "random" so every render is identical.
+  let seed = 7
+  const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646
+  const NS = 'http://www.w3.org/2000/svg'
+  const add = (parent, tag, attrs) => {
+    const el = document.createElementNS(NS, tag)
+    for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v)
+    document.getElementById(parent).appendChild(el)
+    return el
+  }
+  const CX = 958, CY = 338
+
+  // Quinoa base: tiny grains.
+  for (let i = 0; i < 900; i++) {
+    const a = rand() * Math.PI * 2, r = Math.sqrt(rand()) * 240
+    add('quinoa', 'ellipse', {
+      cx: CX + Math.cos(a) * r, cy: CY + Math.sin(a) * r, rx: 3.2, ry: 2.4,
+      transform: `rotate(${rand() * 180} ${CX + Math.cos(a) * r} ${CY + Math.sin(a) * r})`,
+      fill: ['#f3e6cb', '#dcc59c', '#efdfbf', '#cdb489'][i % 4],
+    })
+  }
+
+  // Kale: leafy clusters on the left and bottom.
+  const kaleSpots = [[790, 250, 70], [770, 360, 60], [830, 470, 70], [900, 540, 60], [860, 150, 55]]
+  for (const [x, y, s] of kaleSpots) {
+    for (let i = 0; i < 26; i++) {
+      const a = rand() * Math.PI * 2, r = rand() * s
+      add('kale', 'circle', {
+        cx: x + Math.cos(a) * r, cy: y + Math.sin(a) * r, r: 10 + rand() * 16,
+        fill: ['#2f6b3a', '#3d7f45', '#25603f', '#4b8f4c'][i % 4],
+      })
+    }
+  }
+
+  // Purple cabbage ribbons, bottom right.
+  for (let i = 0; i < 28; i++) {
+    const x = 1010 + rand() * 150, y = 430 + rand() * 120
+    add('cabbage', 'path', {
+      d: `M${x} ${y} q ${20 + rand() * 20} ${-10 - rand() * 20} ${45 + rand() * 25} ${rand() * 10}`,
+      stroke: ['#6d2d63', '#8e4a86', '#a8669c'][i % 3], 'stroke-width': 5 + rand() * 3,
+    })
+  }
+
+  // Avocado slices fanned at the top right.
+  for (let i = 0; i < 5; i++) {
+    const x = 1010 + i * 34, y = 150 + i * 16
+    const g = add('avocado', 'g', { transform: `rotate(${32 + i * 6} ${x} ${y})` })
+    const skin = document.createElementNS(NS, 'ellipse')
+    skin.setAttribute('cx', x); skin.setAttribute('cy', y); skin.setAttribute('rx', 24); skin.setAttribute('ry', 70)
+    skin.setAttribute('fill', '#4d7a2c'); g.appendChild(skin)
+    const flesh = document.createElementNS(NS, 'ellipse')
+    flesh.setAttribute('cx', x - 2); flesh.setAttribute('cy', y - 2); flesh.setAttribute('rx', 19); flesh.setAttribute('ry', 64)
+    flesh.setAttribute('fill', i % 2 ? '#cfe08f' : '#c2d881'); g.appendChild(flesh)
+  }
+
+  // Cherry tomato halves on the right.
+  const toms = [[1150, 300], [1120, 370], [1165, 395], [1100, 300], [1060, 420]]
+  for (const [x, y] of toms) {
+    add('tomatoes', 'circle', { cx: x, cy: y, r: 30, fill: '#cf3b22' })
+    add('tomatoes', 'circle', { cx: x, cy: y, r: 22, fill: '#ef7a5a' })
+    for (let k = 0; k < 4; k++) {
+      const a = (k / 4) * Math.PI * 2
+      add('tomatoes', 'ellipse', { cx: x + Math.cos(a) * 10, cy: y + Math.sin(a) * 10, rx: 4, ry: 6, fill: '#f6c3a6', transform: `rotate(${(a * 180) / Math.PI} ${x + Math.cos(a) * 10} ${y + Math.sin(a) * 10})` })
+    }
+  }
+
+  // Grilled chicken slices across the middle.
+  for (let i = 0; i < 5; i++) {
+    const x = 860 + i * 52, y = 250 + i * 34
+    const g = add('chickenSlices', 'g', { transform: `rotate(-28 ${x} ${y})` })
+    const slice = document.createElementNS(NS, 'rect')
+    for (const [k, v] of Object.entries({ x: x - 48, y: y - 70, width: 96, height: 170, rx: 30, fill: 'url(#chicken)', stroke: '#a8652f', 'stroke-width': 2 })) slice.setAttribute(k, v)
+    g.appendChild(slice)
+    for (let m = 0; m < 4; m++) {
+      const line = document.createElementNS(NS, 'line')
+      for (const [k, v] of Object.entries({ x1: x - 38, y1: y - 40 + m * 38, x2: x + 38, y2: y - 52 + m * 38, stroke: '#6b3f22', 'stroke-width': 6, 'stroke-linecap': 'round', opacity: 0.55 })) line.setAttribute(k, v)
+      g.appendChild(line)
+    }
+  }
+
+  // Sesame and pepper.
+  for (let i = 0; i < 70; i++) {
+    const x = 840 + rand() * 260, y = 220 + rand() * 230
+    add('sesame', 'ellipse', { cx: x, cy: y, rx: 2.6, ry: 1.6, fill: i % 3 ? '#2b2420' : '#f7ecd6', transform: `rotate(${rand() * 180} ${x} ${y})` })
+  }
+
+  // Microgreens on top.
+  for (let i = 0; i < 9; i++) {
+    const x = 1020 + rand() * 40, y = 300 + rand() * 40
+    add('greens', 'path', { d: `M${x} ${y} l ${-20 + rand() * 40} ${-30 - rand() * 20}`, fill: 'none' })
+    add('greens', 'ellipse', { cx: x - 10 + rand() * 30, cy: y - 40 - rand() * 10, rx: 7, ry: 4 })
+  }
+</script>
+</body>
+</html>
