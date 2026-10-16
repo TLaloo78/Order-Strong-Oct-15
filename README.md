@@ -118,6 +118,13 @@ The home screen has a List / Map toggle (`RestaurantMapPanel.tsx`, `RestaurantMa
 - Map tiles are requested from the tile server by each visitor's browser, so it sees their IP address. Mention that in your privacy policy.
 - Not built yet: showing the person's own location (needs a permission prompt) and real distances from it.
 
+## Deploying to Vercel
+
+- Import the GitHub repo with the **Vite** preset and the default build settings (`npm run build`, output `dist`).
+- Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` under Environment Variables.
+- `vercel.json` sends every path that isn't a real file to `index.html`, so the app's own routes (like `/r/ember-oak-grill`, `/saved`, `/reset-password`) work on refresh and from shared links. Real files such as `/og-image.png` and `/assets/*` are still served directly.
+- Add the deployed URL to Supabase Authentication > URL Configuration (Site URL and Redirect URLs) so email links point at the live site.
+
 ## Brand assets
 
 The favicon and link-preview (Open Graph) image use the app's own colors: terracotta brand, cream background.
