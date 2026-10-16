@@ -159,28 +159,18 @@ describe('login screen', () => {
     expect(field).toHaveAttribute('type', 'password')
   })
 
-  it('follows the new design on sign-in: an extra "Show" row under Email and a "Street" password toggle', async () => {
+  it('uses a plain Show / Hide password toggle with no extra rows', async () => {
     const user = userEvent.setup()
     renderAt('/login', fakeAuth().service)
 
     const toggle = await screen.findByRole('button', { name: 'Show password' })
-    expect(toggle).toHaveTextContent('Street')
-    // The extra row is decorative: no second button or field is exposed.
-    expect(screen.getAllByRole('button', { name: /Show/ })).toHaveLength(1)
+    expect(toggle).toHaveTextContent('Show')
+    expect(screen.queryByText('Street')).not.toBeInTheDocument()
     expect(screen.getAllByRole('textbox')).toHaveLength(1)
     expect(screen.getAllByText('Show')).toHaveLength(1)
-    expect(screen.getAllByText('Show')[0]!.closest('[aria-hidden="true"]')).not.toBeNull()
 
-    // The toggle still works and keeps its accessible name in sync.
     await user.click(toggle)
-    expect(screen.getByRole('button', { name: 'Hide password' })).toHaveTextContent('Street')
-
-    // Create account keeps the standard Show / Hide text and has no extra row.
-    // (The field keeps its state, so the password is still showing.)
-    await user.click(screen.getByRole('button', { name: 'Create an account' }))
     expect(screen.getByRole('button', { name: 'Hide password' })).toHaveTextContent('Hide')
-    expect(screen.queryByText('Street')).not.toBeInTheDocument()
-    expect(screen.queryByText('Show')).not.toBeInTheDocument()
   })
 
   it('explains that sign-in is unavailable when there is no account service', async () => {

@@ -7,14 +7,11 @@ export function TextField({
   id,
   label,
   hint,
-  after,
   ...input
 }: {
   id: string
   label: string
   hint?: string
-  /** Extra content shown directly under the input. */
-  after?: ReactNode
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'className'>) {
   return (
     <div>
@@ -27,7 +24,6 @@ export function TextField({
         aria-describedby={hint ? `${id}-hint` : undefined}
         {...input}
       />
-      {after}
       {hint ? (
         <p id={`${id}-hint`} className="mt-1 text-sm text-ink-soft">
           {hint}
@@ -45,7 +41,6 @@ export function PasswordField({
   value,
   onChange,
   minLength,
-  toggleText,
 }: {
   id: string
   label: string
@@ -54,8 +49,6 @@ export function PasswordField({
   value: string
   onChange: (value: string) => void
   minLength?: number
-  /** Overrides the visible text of the show/hide button. Its accessible name stays "Show password" / "Hide password". */
-  toggleText?: string
 }) {
   const [visible, setVisible] = useState(false)
   return (
@@ -82,7 +75,7 @@ export function PasswordField({
           onClick={() => setVisible((v) => !v)}
           className="min-h-12 shrink-0 rounded-xl border border-line bg-surface px-4 text-base font-semibold hover:bg-sand"
         >
-          {toggleText ?? (visible ? 'Hide' : 'Show')}
+          {visible ? 'Hide' : 'Show'}
         </button>
       </div>
       {hint ? (
@@ -90,18 +83,6 @@ export function PasswordField({
           {hint}
         </p>
       ) : null}
-    </div>
-  )
-}
-
-/** A static input-and-button row from the design. It does nothing and is hidden from assistive technology. */
-export function DecorativeInputRow({ buttonText }: { buttonText: string }) {
-  return (
-    <div aria-hidden="true" className="mt-1.5 flex gap-2">
-      <div className="min-h-12 flex-1 rounded-xl border border-line bg-surface" />
-      <div className="flex min-h-12 shrink-0 items-center rounded-xl border border-line bg-surface px-4 text-base font-semibold">
-        {buttonText}
-      </div>
     </div>
   )
 }

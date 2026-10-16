@@ -3,7 +3,7 @@ import { Link, Navigate, useLocation } from 'react-router'
 import { Button } from '../../components/Button'
 import { EmptyState, LoadingList } from '../../components/StatusViews'
 import { useAuth } from './AuthContext'
-import { DecorativeInputRow, FormMessage, LinkButton, PasswordField, TextField } from './FormParts'
+import { FormMessage, LinkButton, PasswordField, TextField } from './FormParts'
 
 type Mode = 'signin' | 'signup' | 'forgot'
 
@@ -129,7 +129,6 @@ export function LoginPage() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          after={mode === 'signin' ? <DecorativeInputRow buttonText="Show" /> : undefined}
         />
 
         {mode !== 'forgot' ? (
@@ -139,7 +138,6 @@ export function LoginPage() {
             autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
             hint={mode === 'signup' ? 'At least 8 characters.' : undefined}
             minLength={mode === 'signup' ? 8 : undefined}
-            toggleText={mode === 'signin' ? 'Street' : undefined}
             value={password}
             onChange={setPassword}
           />
