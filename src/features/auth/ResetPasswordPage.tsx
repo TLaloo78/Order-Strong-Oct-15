@@ -18,7 +18,7 @@ export function ResetPasswordPage() {
   const homeLink = (
     <Link
       to="/"
-      className="inline-flex min-h-11 items-center rounded-xl bg-brand px-4 font-semibold text-white hover:bg-brand-dark"
+      className="inline-flex min-h-11 items-center rounded-xl bg-brand px-4 font-semibold text-on-brand hover:bg-brand-dark"
     >
       Find a restaurant
     </Link>
@@ -42,7 +42,7 @@ export function ResetPasswordPage() {
           action={
             <Link
               to="/login"
-              className="inline-flex min-h-11 items-center rounded-xl bg-brand px-4 font-semibold text-white hover:bg-brand-dark"
+              className="inline-flex min-h-11 items-center rounded-xl bg-brand px-4 font-semibold text-on-brand hover:bg-brand-dark"
             >
               Back to sign in
             </Link>

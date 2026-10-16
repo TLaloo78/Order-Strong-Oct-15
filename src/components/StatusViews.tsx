@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Button } from './Button'
+import { EmptyPlateArt } from './illustrations/SceneArt'
 
 export function LoadingList({ label, count = 3 }: { label: string; count?: number }) {
   return (
@@ -27,6 +28,7 @@ export function EmptyState({
 }) {
   return (
     <div className="rounded-2xl border border-dashed border-line bg-surface px-5 py-8 text-center">
+      <EmptyPlateArt className="mx-auto mb-3 h-20 w-auto" />
       <h2 className="text-lg font-semibold">{title}</h2>
       {children ? <p className="mx-auto mt-1 max-w-sm text-ink-soft">{children}</p> : null}
       {action ? <div className="mt-4 flex justify-center">{action}</div> : null}

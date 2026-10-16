@@ -37,6 +37,14 @@ function renderAt(path: string) {
   return router
 }
 
+describe('header', () => {
+  it('shows the Well Ordered logo linking home, and the theme switch', async () => {
+    renderAt('/saved')
+    expect(await screen.findByRole('link', { name: 'Well Ordered home' })).toHaveAttribute('href', '/')
+    expect(screen.getByRole('group', { name: 'Color theme' })).toBeInTheDocument()
+  })
+})
+
 describe('home map view', () => {
   it('shows the list by default, with List selected', async () => {
     renderAt('/')

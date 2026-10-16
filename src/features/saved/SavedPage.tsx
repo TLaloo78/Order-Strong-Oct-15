@@ -1,10 +1,13 @@
 import { Link } from 'react-router'
 import { Button } from '../../components/Button'
+import { CuisineArt } from '../../components/illustrations/CuisineArt'
+import { ProteinIcon } from '../../components/illustrations/ProteinIcon'
 import { ProteinRange } from '../../components/ProteinInfo'
 import { EmptyState, ErrorState, LoadingList } from '../../components/StatusViews'
 import { getDishesByIds, getRestaurantsByIds } from '../../data/restaurantRepository'
 import { dishPath, restaurantPath } from '../../lib/paths'
 import { formatPrice, priceLevelLabel } from '../../lib/price'
+import { proteinSource } from '../../lib/proteinSource'
 import { useAsync } from '../../lib/useAsync'
 import type { Dish, Restaurant } from '../../types/restaurant'
 import { useSaved } from './SavedContext'
@@ -40,7 +43,7 @@ function SavedContent() {
         action={
           <Link
             to="/"
-            className="inline-flex min-h-11 items-center rounded-xl bg-brand px-4 font-semibold text-white hover:bg-brand-dark"
+            className="inline-flex min-h-11 items-center rounded-xl bg-brand px-4 font-semibold text-on-brand hover:bg-brand-dark"
           >
             Find a restaurant
           </Link>
@@ -148,13 +151,18 @@ function SavedDishItem({
 }) {
   return (
     <li className="flex flex-col rounded-2xl border border-line bg-surface p-4 shadow-card">
-      <Link to={dishPath(restaurant.id, dish.id)} className="block">
-        <h3 className="font-bold leading-snug">{dish.name}</h3>
-        <p className="text-ink-soft">
-          {restaurant.name} · {formatPrice(dish.price)}
-        </p>
-        <div className="mt-1.5">
-          <ProteinRange estimate={dish.protein} />
+      <Link to={dishPath(restaurant.id, dish.id)} className="flex items-start gap-3">
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-tint text-brand-dark">
+          <ProteinIcon source={proteinSource(dish)} className="size-6" />
+        </span>
+        <div className="min-w-0">
+          <h3 className="font-bold leading-snug">{dish.name}</h3>
+          <span className="block text-ink-soft">
+            {restaurant.name} · {formatPrice(dish.price)}
+          </span>
+          <span className="mt-1.5 block">
+            <ProteinRange estimate={dish.protein} />
+          </span>
         </div>
       </Link>
       <div className="mt-3">
@@ -175,12 +183,15 @@ function SavedRestaurantItem({
 }) {
   return (
     <li className="flex flex-col rounded-2xl border border-line bg-surface p-4 shadow-card">
-      <Link to={restaurantPath(restaurant.id)} className="block">
-        <h3 className="font-bold leading-snug">{restaurant.name}</h3>
-        <p className="text-ink-soft">
-          {restaurant.cuisine} · {priceLevelLabel(restaurant.priceLevel)} ·{' '}
-          {restaurant.distanceMi.toFixed(1)} mi
-        </p>
+      <Link to={restaurantPath(restaurant.id)} className="flex items-center gap-3">
+        <CuisineArt cuisine={restaurant.cuisine} className="size-14 shrink-0" />
+        <div className="min-w-0">
+          <h3 className="font-bold leading-snug">{restaurant.name}</h3>
+          <span className="block text-ink-soft">
+            {restaurant.cuisine} · {priceLevelLabel(restaurant.priceLevel)} ·{' '}
+            {restaurant.distanceMi.toFixed(1)} mi
+          </span>
+        </div>
       </Link>
       <div className="mt-3">
         <Button variant="secondary" onClick={onRemove}>

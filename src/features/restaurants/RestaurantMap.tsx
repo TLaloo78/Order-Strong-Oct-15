@@ -1,5 +1,7 @@
-import L from 'leaflet'
+import L from './leaflet'
+import 'leaflet.markercluster'
 import 'leaflet/dist/leaflet.css'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
 import { useEffect, useRef } from 'react'
 import { priceLevelLabel } from '../../lib/price'
 import { formatProteinRange } from '../../lib/protein'
@@ -35,11 +37,29 @@ function pinIcon(restaurant: RestaurantSummary): L.DivIcon {
   })
 }
 
-/** An OpenStreetMap map with one keyboard-focusable pin per restaurant. */
+function clusterIcon(cluster: L.MarkerCluster): L.DivIcon {
+  const count = cluster.getChildCount()
+  return L.divIcon({
+    className: 'map-cluster-wrap',
+    html: `<span class="map-cluster">${count}<span class="sr-only"> restaurants here. Select to zoom in.</span></span>`,
+    iconSize: [56, 56],
+    iconAnchor: [28, 28],
+  })
+}
+
+/**
+ * An OpenStreetMap map with one keyboard-focusable pin per restaurant.
+ * Pins that would overlap are grouped into a numbered cluster; selecting it zooms in to split them.
+ */
 export default function RestaurantMap({ restaurants, selectedId, onSelect }: RestaurantMapProps) {
   const containerRef = useRef<HTMLElement>(null)
   const mapRef = useRef<L.Map | null>(null)
   const markersRef = useRef(new Map<string, L.Marker>())
+  const clusterRef = useRef<L.MarkerClusterGroup | null>(null)
+  const selectedRef = useRef(selectedId)
+  useEffect(() => {
+    selectedRef.current = selectedId
+  })
   const onSelectRef = useRef(onSelect)
   useEffect(() => {
     onSelectRef.current = onSelect
@@ -69,7 +89,14 @@ export default function RestaurantMap({ restaurants, selectedId, onSelect }: Res
     const map = mapRef.current
     if (!map) return
     const markers = markersRef.current
-    const group = L.featureGroup()
+    const group = L.markerClusterGroup({
+      // Group pins only when they would actually overlap (pins are 44px).
+      maxClusterRadius: 48,
+      showCoverageOnHover: false,
+      spiderfyOnMaxZoom: true,
+      iconCreateFunction: clusterIcon,
+    })
+    clusterRef.current = group
 
     for (const restaurant of restaurants) {
       const label = pinLabel(restaurant)
@@ -81,6 +108,10 @@ export default function RestaurantMap({ restaurants, selectedId, onSelect }: Res
         riseOnHover: true,
       })
       marker.on('click', () => onSelectRef.current(restaurant.id))
+      // A pin's element is recreated whenever it leaves a cluster, so re-apply the selected style.
+      marker.on('add', () => {
+        marker.getElement()?.classList.toggle('is-selected', selectedRef.current === restaurant.id)
+      })
       marker.addTo(group)
       markers.set(restaurant.id, marker)
     }
@@ -92,6 +123,7 @@ export default function RestaurantMap({ restaurants, selectedId, onSelect }: Res
 
     return () => {
       markers.clear()
+      clusterRef.current = null
       if (map.hasLayer(group)) group.remove()
     }
   }, [restaurants])
@@ -106,7 +138,10 @@ export default function RestaurantMap({ restaurants, selectedId, onSelect }: Res
       marker.setZIndexOffset(selected ? 1000 : 0)
     })
     const selectedMarker = selectedId ? markersRef.current.get(selectedId) : undefined
-    if (selectedMarker) map.panTo(selectedMarker.getLatLng())
+    if (!selectedMarker) return
+    // If the pin is inside a cluster, zoom in until it shows; otherwise just center it.
+    if (clusterRef.current && !map.hasLayer(selectedMarker)) clusterRef.current.zoomToShowLayer(selectedMarker)
+    else map.panTo(selectedMarker.getLatLng())
   }, [selectedId, restaurants])
 
   return (

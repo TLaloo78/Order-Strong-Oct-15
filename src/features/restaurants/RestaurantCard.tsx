@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { CuisineArt } from '../../components/illustrations/CuisineArt'
 import { ProteinRange } from '../../components/ProteinInfo'
 import { formatPrice, priceLevelLabel } from '../../lib/price'
 import { restaurantPath } from '../../lib/paths'
@@ -12,8 +13,9 @@ export function RestaurantCard({ restaurant }: { restaurant: RestaurantSummary }
         to={restaurantPath(restaurant.id)}
         className="block h-full rounded-2xl border border-line bg-surface p-4 shadow-card transition-colors hover:border-brand"
       >
-        <div className="flex items-start justify-between gap-3">
-          <div>
+        <div className="flex items-start gap-3">
+          <CuisineArt cuisine={restaurant.cuisine} className="size-16 shrink-0" />
+          <div className="min-w-0 flex-1">
             <h2 className="text-lg font-bold leading-snug">{restaurant.name}</h2>
             <p className="text-ink-soft">
               {restaurant.cuisine} · {priceLevelLabel(restaurant.priceLevel)} ·{' '}

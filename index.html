@@ -7,16 +7,25 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#fbf7f2" />
+    <script>
+      // Apply a saved Light/Dark choice before first paint (see src/lib/theme.ts).
+      try {
+        var t = localStorage.getItem('well-ordered:theme')
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t
+        if (t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches))
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#17120f')
+      } catch (e) {}
+    </script>
     <meta
       name="description"
       content="Find the best protein-forward dish at any restaurant, fast."
     />
-    <title>Order Strong</title>
+    <title>Well Ordered</title>
 
     <!-- Link previews. __SITE_URL__ is filled in at build time (see vite.config.ts). -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Order Strong" />
-    <meta property="og:title" content="Order Strong: what to order for more protein" />
+    <meta property="og:site_name" content="Well Ordered" />
+    <meta property="og:title" content="Well Ordered: what to order for more protein" />
     <meta
       property="og:description"
       content="Find the best protein-forward dish at any restaurant, fast."
@@ -28,10 +37,10 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Order Strong logo and the tagline High-protein restaurant finder, next to an illustrated chicken and quinoa bowl."
+      content="Well Ordered logo and the tagline High-protein restaurant finder, next to an illustrated chicken and quinoa bowl."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Order Strong: what to order for more protein" />
+    <meta name="twitter:title" content="Well Ordered: what to order for more protein" />
     <meta
       name="twitter:description"
       content="Find the best protein-forward dish at any restaurant, fast."

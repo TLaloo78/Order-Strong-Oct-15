@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
-/* Design tokens: warm, confident, practical. Text pairs meet WCAG AA on their backgrounds. */
+/* Design tokens: warm, confident, practical. Text pairs meet WCAG AA on their backgrounds in both themes.
+   Names are roles, not literal colors: in dark mode "cream" is the page background, "ink" the main text. */
 @theme {
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
@@ -15,6 +16,8 @@
   --color-brand: #9a3f22;
   --color-brand-dark: #7d3119;
   --color-brand-tint: #f8e4da;
+  /* Text and icons placed on a brand-colored fill. */
+  --color-on-brand: #ffffff;
 
   --color-leaf: #25603f;
   --color-leaf-tint: #dcefe3;
@@ -24,6 +27,63 @@
   --color-stone-tint: #e8e3dc;
 
   --shadow-card: 0 1px 2px rgb(43 36 32 / 0.06), 0 4px 12px rgb(43 36 32 / 0.05);
+}
+
+/* Theme switching. With no data-theme on <html> the OS setting decides; the toggle sets
+   data-theme="light" or "dark" to override it. Keep the two dark blocks below identical. */
+:root {
+  color-scheme: light;
+  --backdrop: rgb(43 36 32 / 0.5);
+  --overlay-shadow: rgb(43 36 32 / 0.25);
+  --map-tile-filter: none;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-cream: #17120f;
+  --color-surface: #221b17;
+  --color-sand: #2e2620;
+  --color-line: #4a3e35;
+  --color-ink: #f4ede5;
+  --color-ink-soft: #c8b9ac;
+  --color-brand: #e8845f;
+  --color-brand-dark: #f3a888;
+  --color-brand-tint: #3d241a;
+  --color-on-brand: #1c120d;
+  --color-leaf: #8fd1a8;
+  --color-leaf-tint: #1b3a2a;
+  --color-amber-ink: #f2c86e;
+  --color-amber-tint: #3b2e12;
+  --color-stone-ink: #d9d1c8;
+  --color-stone-tint: #39322c;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 12px rgb(0 0 0 / 0.3);
+  --backdrop: rgb(0 0 0 / 0.6);
+  --overlay-shadow: rgb(0 0 0 / 0.5);
+  --map-tile-filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.88) saturate(0.6);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --color-cream: #17120f;
+    --color-surface: #221b17;
+    --color-sand: #2e2620;
+    --color-line: #4a3e35;
+    --color-ink: #f4ede5;
+    --color-ink-soft: #c8b9ac;
+    --color-brand: #e8845f;
+    --color-brand-dark: #f3a888;
+    --color-brand-tint: #3d241a;
+    --color-on-brand: #1c120d;
+    --color-leaf: #8fd1a8;
+    --color-leaf-tint: #1b3a2a;
+    --color-amber-ink: #f2c86e;
+    --color-amber-tint: #3b2e12;
+    --color-stone-ink: #d9d1c8;
+    --color-stone-tint: #39322c;
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 12px rgb(0 0 0 / 0.3);
+    --backdrop: rgb(0 0 0 / 0.6);
+    --overlay-shadow: rgb(0 0 0 / 0.5);
+    --map-tile-filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.88) saturate(0.6);
+  }
 }
 
 @layer base {
@@ -71,7 +131,7 @@ dialog.sheet {
   max-width: none;
   max-height: none;
   overflow: hidden;
-  box-shadow: 0 -8px 32px rgb(43 36 32 / 0.25);
+  box-shadow: 0 -8px 32px var(--overlay-shadow);
   position: fixed;
   inset: auto 0 0 0;
   width: 100%;
@@ -80,7 +140,7 @@ dialog.sheet {
   animation: sheet-up 180ms ease-out;
 }
 dialog.sheet::backdrop {
-  background: rgb(43 36 32 / 0.5);
+  background: var(--backdrop);
 }
 @media (min-width: 768px) {
   dialog.sheet {
@@ -89,7 +149,7 @@ dialog.sheet::backdrop {
     height: 100dvh;
     max-height: 100dvh;
     border-radius: 0;
-    box-shadow: -8px 0 32px rgb(43 36 32 / 0.25);
+    box-shadow: -8px 0 32px var(--overlay-shadow);
     animation: sheet-in 180ms ease-out;
   }
 }
@@ -120,9 +180,9 @@ dialog.sheet[open] {
   height: 36px;
   margin: 4px;
   border-radius: 9999px;
-  border: 3px solid #fff;
+  border: 3px solid var(--color-surface);
   background: var(--color-brand);
-  color: #fff;
+  color: var(--color-on-brand);
   font: 700 0.8rem/1 var(--font-sans);
   box-shadow: 0 2px 6px rgb(43 36 32 / 0.4);
   transition: transform 120ms ease, background-color 120ms ease;
@@ -132,6 +192,7 @@ dialog.sheet[open] {
 }
 .map-pin-wrap.is-selected .map-pin {
   background: var(--color-ink);
+  color: var(--color-cream);
   transform: scale(1.2);
 }
 .map-pin-wrap:focus-visible {
@@ -140,4 +201,47 @@ dialog.sheet[open] {
 .map-pin-wrap:focus-visible .map-pin {
   outline: 3px solid var(--color-ink);
   outline-offset: 3px;
+}
+
+/* OpenStreetMap tiles are light-only; darken them in dark mode. */
+.leaflet-tile-pane {
+  filter: var(--map-tile-filter);
+}
+.leaflet-container {
+  background: var(--color-sand);
+}
+.leaflet-bar a,
+.leaflet-control-attribution {
+  background: var(--color-surface) !important;
+  color: var(--color-ink) !important;
+  border-color: var(--color-line) !important;
+}
+.leaflet-control-attribution a {
+  color: var(--color-brand) !important;
+}
+
+/* Map clusters: several nearby restaurants merged into one numbered bubble. */
+.map-cluster-wrap {
+  background: none;
+  border: 0;
+}
+.map-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  background: var(--color-brand-dark);
+  color: var(--color-on-brand);
+  border: 3px solid var(--color-surface);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-brand) 30%, transparent), 0 2px 6px rgb(0 0 0 / 0.35);
+  font: 800 1rem/1 var(--font-sans);
+}
+.map-cluster-wrap:focus-visible {
+  outline: none;
+}
+.map-cluster-wrap:focus-visible .map-cluster {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 4px;
 }

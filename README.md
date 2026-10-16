@@ -1,4 +1,4 @@
-# Order Strong (protein-first restaurant recommender)
+# Well Ordered (protein-first restaurant recommender)
 
 A mobile-first web app that tells you **what to order** at a restaurant to hit your protein goals. The dish is the unit, not the restaurant: pick a place, see its top 3 protein picks, customize, decide.
 
@@ -40,7 +40,7 @@ An empty state shows up when you search for something that doesn't exist (try `z
 
 ## Stack
 
-React 19 · TypeScript (strict) · Vite · React Router · Tailwind CSS v4 · Leaflet (maps) · Vitest + React Testing Library.
+React 19 · TypeScript (strict) · Vite · React Router · Tailwind CSS v4 · Leaflet + leaflet.markercluster (maps) · Vitest + React Testing Library.
 Runtime dependencies are just `react`, `react-dom`, and `react-router`. No state-management library; the only shared state is the saved-items context.
 
 ## Project structure
@@ -92,14 +92,27 @@ Filters live in the URL (for example `?minProtein=30&sort=price`), so the Back b
 - `src/lib/protein.test.ts`: ranking, tie-breaking, sorting, and filtering logic
 - `src/data/restaurantRepository.test.ts`: search, price overlap, lookups, and simulated failures (tests always use the mock data, never the network)
 - `src/data/supabaseRestaurantRepository.test.ts`: row mapping, filter building (including special characters), error handling, using a fake client
+- `src/lib/proteinSource.test.ts`: which protein icon each dish gets
+- `src/components/ThemeToggle.test.tsx`: forcing dark/light, remembering the choice, back to System
 - `src/features/restaurants/HomePage.test.tsx`: the List / Map toggle, filters carried over to the map, selecting a pin (Leaflet itself is swapped for a stand-in in tests)
 - `src/features/restaurants/RestaurantPage.test.tsx`: top 3 picks, menu filters, opening a dish and saving it
+
+## Design
+
+- **Name and voice** live in `src/brand.ts` (name, tagline, descriptor). The app was called "Order Strong" during early development; the GitHub repo keeps that name.
+- **Logo:** `src/components/Logo.tsx` draws the mark (map pin with a fork, between two weight plates) with theme colors, plus the two-tone wordmark. The favicon and link-preview image use the same mark (see Brand assets).
+- **Illustrations** are flat SVG drawings, not photos, so there are no licensing questions and they work in both themes:
+  - `illustrations/CuisineArt.tsx`: one dish per cuisine, used on restaurant cards, the restaurant header and Saved.
+  - `illustrations/ProteinIcon.tsx` with `lib/proteinSource.ts`: an icon and label for each dish's main protein (chicken, fish, shellfish, beef/lamb/pork, eggs & dairy, plant), guessed from the dish name.
+  - `illustrations/SceneArt.tsx`: the empty-plate art on empty states and the protein bowl on sign-in.
+- **Dark mode:** colors are CSS variables in `src/index.css`. Dark values are defined twice (for the OS setting and for a forced choice) and must stay identical. Every text and background pair meets WCAG AA in both themes. The header's Light / Dark / System switch (`components/ThemeToggle.tsx`, `lib/theme.ts`) saves the choice on the device, and a small script in `index.html` applies it before first paint so there's no flash. Map tiles are darkened with a CSS filter in dark mode.
+- **Sign-in** has a welcome panel (logo, tagline, illustration). It's a compact banner on phones and a full column beside the form on wider screens.
 
 ## Map
 
 The home screen has a List / Map toggle (`RestaurantMapPanel.tsx`, `RestaurantMap.tsx`). It uses [Leaflet](https://leafletjs.com) with OpenStreetMap tiles, so no API key or account is needed. The map code loads on demand, so it doesn't slow the first page load.
 
-- Each restaurant is a pin showing its price level. Pins are keyboard-focusable (Tab, then Enter). Selecting one shows that restaurant's card with its best protein pick and a link to its page. The map follows the same search and price filters as the list, and the choice is kept in the URL (`?view=map`).
+- Each restaurant is a pin showing its price level. Pins that would overlap are merged into a numbered cluster (`leaflet.markercluster`); selecting a cluster zooms in until its pins separate. Pins and clusters are keyboard-focusable (Tab, then Enter). Selecting one shows that restaurant's card with its best protein pick and a link to its page. The map follows the same search and price filters as the list, and the choice is kept in the URL (`?view=map`).
 - **Locations are samples.** The coordinates are made-up positions around downtown Wheaton, IL, worked out from each restaurant's mock distance, so the map and the "mi" figures agree. They live in the `latitude` / `longitude` columns (and `src/data/mock/restaurants.ts`).
 - **Tiles:** the free `tile.openstreetmap.org` server is fine for development and light use, but its [usage policy](https://operations.osmfoundation.org/policies/tiles/) doesn't allow heavy production traffic. Before launch, switch `TILE_URL` and `ATTRIBUTION` in `RestaurantMap.tsx` to a hosted provider (for example MapTiler, Stadia Maps, or Mapbox). Keep the attribution the provider requires.
 - Map tiles are requested from the tile server by each visitor's browser, so it sees their IP address. Mention that in your privacy policy.

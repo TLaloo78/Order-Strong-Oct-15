@@ -17,7 +17,7 @@ export function Chip({
       onClick={onClick}
       className={`inline-flex min-h-11 items-center rounded-full border px-4 text-base font-medium transition-colors ${
         selected
-          ? 'border-brand bg-brand text-white'
+          ? 'border-brand bg-brand text-on-brand'
           : 'border-line bg-surface text-ink hover:bg-sand'
       }`}
     >

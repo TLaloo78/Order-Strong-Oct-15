@@ -1,5 +1,6 @@
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router'
 import { Button, ToggleButton } from '../../components/Button'
+import { CuisineArt } from '../../components/illustrations/CuisineArt'
 import { EmptyState, ErrorState, LoadingList } from '../../components/StatusViews'
 import { getDishesForRestaurant, getRestaurant } from '../../data/restaurantRepository'
 import { priceLevelLabel } from '../../lib/price'
@@ -77,12 +78,16 @@ function RestaurantContent({ restaurant, dishes }: RestaurantOutletContext) {
             Save restaurant
           </ToggleButton>
         </div>
-        <div>
-          <h1 className="text-2xl font-extrabold tracking-tight md:text-3xl">{restaurant.name}</h1>
-          <p className="text-ink-soft">
-            {restaurant.cuisine} · {priceLevelLabel(restaurant.priceLevel)} ·{' '}
-            {restaurant.distanceMi.toFixed(1)} mi · {restaurant.neighborhood}
-          </p>
+        <div className="flex items-center gap-4 rounded-2xl border border-line bg-surface p-3 shadow-card md:p-4">
+          <CuisineArt cuisine={restaurant.cuisine} className="size-20 shrink-0 md:size-28" />
+          <div className="min-w-0">
+            <h1 className="text-2xl font-extrabold tracking-tight md:text-3xl">{restaurant.name}</h1>
+            <p className="text-ink-soft">
+              {restaurant.cuisine} · {priceLevelLabel(restaurant.priceLevel)} ·{' '}
+              {restaurant.distanceMi.toFixed(1)} mi · {restaurant.neighborhood}
+            </p>
+            <p className="mt-1 hidden text-ink-soft md:block">{restaurant.blurb}</p>
+          </div>
         </div>
       </div>
 

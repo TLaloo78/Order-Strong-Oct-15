@@ -2,6 +2,9 @@ import { useEffect } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router'
 import { useAuth } from '../features/auth/AuthContext'
 import { useSaved } from '../features/saved/SavedContext'
+import { BRAND } from '../brand'
+import { Logo } from './Logo'
+import { ThemeToggle } from './ThemeToggle'
 
 function navClass({ isActive }: { isActive: boolean }) {
   return `flex min-h-14 flex-1 items-center justify-center gap-2 px-4 text-base font-semibold md:min-h-11 md:flex-none md:rounded-xl ${
@@ -31,36 +34,39 @@ export function Layout() {
 
       <header className="sticky top-0 z-20 border-b border-line bg-cream">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 md:px-6">
-          <NavLink to="/" className="flex min-h-11 items-center text-xl font-extrabold tracking-tight text-brand-dark">
-            Order Strong
+          <NavLink to="/" className="flex min-h-11 items-center" aria-label={`${BRAND.name} home`}>
+            <Logo />
           </NavLink>
 
-          <nav
-            aria-label="Main"
-            className="fixed inset-x-0 bottom-0 z-30 flex border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] md:static md:z-auto md:gap-1 md:border-0 md:bg-transparent md:pb-0"
-          >
-            <NavLink to="/" end className={navClass}>
-              Restaurants
-            </NavLink>
-            <NavLink to="/saved" className={navClass}>
-              Saved
-              {count > 0 ? (
-                <span className="rounded-full bg-brand px-2 text-sm text-white">
-                  {count}
-                  <span className="sr-only"> saved items</span>
-                </span>
+          <div className="flex items-center gap-3">
+            <nav
+              aria-label="Main"
+              className="fixed inset-x-0 bottom-0 z-30 flex border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] md:static md:z-auto md:gap-1 md:border-0 md:bg-transparent md:pb-0"
+            >
+              <NavLink to="/" end className={navClass}>
+                Restaurants
+              </NavLink>
+              <NavLink to="/saved" className={navClass}>
+                Saved
+                {count > 0 ? (
+                  <span className="rounded-full bg-brand px-2 text-sm text-on-brand">
+                    {count}
+                    <span className="sr-only"> saved items</span>
+                  </span>
+                ) : null}
+              </NavLink>
+              {status === 'signedIn' ? (
+                <NavLink to="/account" className={navClass}>
+                  Account
+                </NavLink>
+              ) : status === 'signedOut' ? (
+                <NavLink to="/login" className={navClass}>
+                  Sign in
+                </NavLink>
               ) : null}
-            </NavLink>
-            {status === 'signedIn' ? (
-              <NavLink to="/account" className={navClass}>
-                Account
-              </NavLink>
-            ) : status === 'signedOut' ? (
-              <NavLink to="/login" className={navClass}>
-                Sign in
-              </NavLink>
-            ) : null}
-          </nav>
+            </nav>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
